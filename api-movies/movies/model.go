@@ -1,16 +1,14 @@
 package movies
 
 import (
-	"time"
-
 	"github.com/m4rw3r/uuid"
 )
 
 type Movies struct {
 	Id         uuid.UUID  `json:"id" db:"id"`
 	MovieName  string     `json:"movie_name" db:"movie_name"`
-	Year       time.Time  `json:"year" db:"year"`
-	Duration   time.Time  `json:"duration" db:"duration"`
+	Year       string     `json:"year" db:"year"`
+	Duration   string     `json:"duration" db:"duration"`
 	CategoryId uuid.UUID  `json:"category_id" db:"category_id"`
 	DirectorId uuid.UUID  `json:"director_id" db:"director_id"`
 	StudioId   uuid.UUID  `json:"studio_id" db:"studio_id"`
