@@ -1,7 +1,6 @@
 package main
 
 import (
-	dataservices "api-movies/dataservices"
 	"api-movies/movies"
 	"fmt"
 	"log"
@@ -12,9 +11,11 @@ import (
 
 func main() {
 	router := mux.NewRouter()
-	db := dataservices.SetUpDb()
-	fmt.Println(db)
-	router.HandleFunc("/movies/", movies.GetHandler).Methods("GET")
+
+	router.HandleFunc("/movies/", movies.GetAllMoviesHandler).Methods("GET")
+	router.HandleFunc("/movies", movies.GetMoviesByIHandler).Methods("GET")
+	router.HandleFunc("/movies/{id}", movies.GetMoviesByIHandler).Methods("DELETE")
+	router.HandleFunc("/movies/", movies.SaveOrUpdateHandler).Methods("POST")
 
 	fmt.Println("Server listening at port: 9000")
 	log.Fatal(http.ListenAndServe(":9000", router))
