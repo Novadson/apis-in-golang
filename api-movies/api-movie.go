@@ -13,7 +13,7 @@ func main() {
 	router := mux.NewRouter()
 
 	router.HandleFunc("/movies/", movies.GetAllMoviesHandler).Methods("GET")
-	router.HandleFunc("/movies/{movieid}", movies.GetMoviesByIHandler).Methods("GET")
+	router.HandleFunc("/movies/{id}", movies.GetMoviesByIHandler).Methods("GET")
 	router.HandleFunc("/movies/{id}", movies.GetMoviesByIHandler).Methods("DELETE")
 	router.HandleFunc("/movies/", movies.SaveOrUpdateHandler).Methods("POST")
 

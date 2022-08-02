@@ -5,3 +5,7 @@ func CheckErroMessage(err error) {
 		panic(err)
 	}
 }
+
+func SucessMessage() string {
+	return "Operação realizada com sucesso!"
+}

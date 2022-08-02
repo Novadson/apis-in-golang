@@ -1,0 +1,74 @@
+THE ARE THREE WAYS TO GET REQUEST PARAMETER
+
+/*
+	1-	*router.HandleFunc("/movies/{id}", Method).Methods("GET")
+		Id := r.URL.Query().Get("id")
+
+	2-	*router.HandleFunc("/movies/{id}", Method).Methods("GET")
+	    Id := r.FormValue("id")
+
+	3- *router.HandleFunc("/movies", Method).Methods("GET")
+		*params := mux.Vars(r) paras := params["id"]
+	*/
+create	table movies(
+ 	id uuid primary key default uuid_generate_v4(),
+ 	movie_name varchar(250) not null
+ 	category_id uuid,
+ 	director_id uuid,
+ 	studio_id uuid,
+ 	foreign key (category_id) references Categories(id),
+ 	foreign key (director_id) references Directors(id),
+ 	foreign key (studio_id) references Studios(id)
+ )
+ 
+ 
+ 
+ create extension if not exists "uuid-ossp"
+ 
+ 
+     CREATE TABLE Studios(
+        id uuid primary key default uuid_generate_v4(),
+        studio_name           VARCHAR(30),
+        address         VARCHAR(70)
+    );
+    
+    CREATE TABLE Directors(
+     	id uuid primary key default uuid_generate(),
+        director_name           VARCHAR(50),
+        category    CHAR,           -- vamos assumir que é A, B, ou C.
+    );
+    
+    CREATE TABLE Categories(
+     	id uuid primary key default uuid_generate(),
+        category_name           VARCHAR(50),
+    );
+    
+
+    CREATE TABLE Filmes(
+        nome           VARCHAR(50),
+        ano            INTEGER,
+        duracao        INTEGER,
+        aCores         BOOLEAN,
+        nomeEstudio    VARCHAR(30),
+        nomeRealizador VARCHAR(50),
+        PRIMARY KEY (nome,ano),
+        FOREIGN KEY (nomeEstudio) REFERENCES Estudios(nome),
+        FOREIGN KEY (nomeRealizador) REFERENCES Realizadores(nome)
+    );
+    
+    CREATE TABLE Actores(
+        nome           VARCHAR(50),
+        morada         VARCHAR(70),
+        sexo           CHAR,
+        dataNascimento DATE,
+        PRIMARY KEY (nome)
+    );
+    
+    CREATE TABLE Participa(
+        nomeFilme      VARCHAR(50),
+        anoFilme       INTEGER,
+        nomeActor      VARCHAR(50),
+        PRIMARY KEY (nomeFilme,anoFilme,nomeActor),
+        FOREIGN KEY (nomeActor) REFERENCES Actores(nome),
+        FOREIGN KEY (nomeFilme,anoFilme) REFERENCES Filmes(nome,ano)
+    );
