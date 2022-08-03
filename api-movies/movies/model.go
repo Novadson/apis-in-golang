@@ -36,6 +36,7 @@ type Directors struct {
 
 type Actors struct {
 	Id          uuid.UUID `json:"id" db:"id"`
+	ActorName   string    `json:"actor_name" db:"actor_name"`
 	Address     string    `json:"address" db:"address"`
 	Sex         string    `json:"sex" db:"sex"`
 	DateOfBirth string    `json:"date_of_birth" db:"date_of_birth"`

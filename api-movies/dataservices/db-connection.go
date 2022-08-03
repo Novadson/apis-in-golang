@@ -2,9 +2,9 @@ package dataservices
 
 import (
 	app "api-movies/app-message"
-	"database/sql"
 	"fmt"
 
+	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 )
 
@@ -16,14 +16,17 @@ const (
 	PORT      = 5432
 )
 
-func SetUpDb() *sql.DB {
+func SetUpDb() (db *sqlx.DB) {
 	dbInfo := fmt.Sprintf("host=%s user=%s dbname=%s password=%s port=%d",
 		HOST, USER_NAME, DB_NAME, PASSWORD, PORT)
 
-	db, err := sql.Open("postgres", dbInfo)
+	db, err := sqlx.Open("postgres", dbInfo)
+	app.CheckErroMessage(err)
+
+	err = db.Ping()
 	app.CheckErroMessage(err)
 
 	defer db.Close()
 
-	return db
+	return
 }
